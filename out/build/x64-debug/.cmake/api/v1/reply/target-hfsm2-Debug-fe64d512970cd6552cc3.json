@@ -1,0 +1,41 @@
+{
+	"abstract" : true,
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library"
+		],
+		"files" : 
+		[
+			"out/build/x64-debug/_deps/hfsm2-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 6,
+				"parent" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 10
+	},
+	"id" : "hfsm2::@f0d02374e532a70b01d2",
+	"name" : "hfsm2",
+	"paths" : 
+	{
+		"build" : "_deps/hfsm2-build",
+		"source" : "out/build/x64-debug/_deps/hfsm2-src"
+	},
+	"sources" : [],
+	"type" : "INTERFACE_LIBRARY"
+}

@@ -1,0 +1,3 @@
+C:/Users/fiten/source/repos/GameProject/out/build/x64-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate.dir
+C:/Users/fiten/source/repos/GameProject/out/build/x64-debug/_deps/raylib-subbuild/CMakeFiles/edit_cache.dir
+C:/Users/fiten/source/repos/GameProject/out/build/x64-debug/_deps/raylib-subbuild/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,92 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"out/build/x64-debug/_deps/hfsm2-src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 26,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 49,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 55,
+				"parent" : 0
+			}
+		]
+	},
+	"codemodelVersion" : 
+	{
+		"major" : 2,
+		"minor" : 10
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"paths" : 
+			[
+				{
+					"from" : "out/build/x64-debug/_deps/hfsm2-src/include",
+					"to" : "."
+				}
+			],
+			"type" : "directory"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/hfsm2",
+			"paths" : 
+			[
+				"out/build/x64-debug/_deps/hfsm2-build/hfsm2Config.cmake",
+				"out/build/x64-debug/_deps/hfsm2-build/hfsm2ConfigVersion.cmake"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "lib/cmake/hfsm2",
+			"exportName" : "hfsm2Targets",
+			"exportTargets" : 
+			[
+				{
+					"id" : "hfsm2::@f0d02374e532a70b01d2",
+					"index" : 4
+				}
+			],
+			"paths" : 
+			[
+				"_deps/hfsm2-build/CMakeFiles/Export/18fd0b71e75516540797141310a79fd8/hfsm2Targets.cmake"
+			],
+			"type" : "export"
+		}
+	],
+	"paths" : 
+	{
+		"build" : "_deps/hfsm2-build",
+		"source" : "out/build/x64-debug/_deps/hfsm2-src"
+	}
+}
