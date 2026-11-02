@@ -3,10 +3,15 @@
 #include <string>
 #include "Engine/Graphics.h"
 #include "../Combat/AttackContext.h"
+#include "../Combat/HandPose.h"
+#include "../Item.h"
+#include "AmmoInfo.h"
 
 class Weapon {
 public:
 	virtual ~Weapon() = default;
+
+	static constexpr int MaxLevel = 5;
 
 	bool isFiring() const;
 	float getMovementMultiplier() const;
@@ -14,8 +19,16 @@ public:
 	void update(float deltaTime, const AttackContext& context, bool triggerPressed, bool triggerHeld);
 	virtual void renderHeld(Engine::Graphics::Renderer& renderer, const Vector2& origin, const Vector2& direction) const = 0;
 	virtual void renderEffects(Engine::Graphics::Renderer& renderer) const {}
+	virtual AmmoInfo getAmmoInfo() const;
+	virtual HandPose getHandPose(const Vector2& origin, const Vector2& direction) const;
 
 	const std::string& getName() const;
+	int getLevel() const;
+	void setLevel(int level);
+	bool isLevelMax() const;
+	int getUpgradeCost() const;
+
+	static std::string getAttachmentName(const Attachment& attachment);
 
 protected:
 	Weapon(const std::string& name, float cooldown, float damageMultiplier, bool automatic);
@@ -36,5 +49,9 @@ private:
 	float damageMultiplier;
 	float movementMultiplier = 1.0f;
 	float firingTimer = 0.0f;
+	int level = 1;
 	bool automatic;
+
+	static std::string attachmentName(GunAttachment attachment);
+	static std::string attachmentName(SwordAttachment attachment);
 };

@@ -13,8 +13,8 @@ struct EnemyScale {
 
 struct StageConfig {
 	static constexpr int Count = 10;
-	static constexpr int BaseMapCells = 128;
-	static constexpr int MapGrowth = 8;
+	static constexpr int BaseMapCells = 512;
+	static constexpr int MapGrowth = 128;
 
 	int number = 1;
 	uint64_t seed = 0;
@@ -22,8 +22,8 @@ struct StageConfig {
 	// Map
 	int mapCells = BaseMapCells;
 	int complexity = 1;
-	float mainRoadHalfWidth = 6.0f;
-	float trailHalfWidth = 4.5f;
+	float mainRoadHalfWidth = 12.0f;
+	float trailHalfWidth = 9.0f;
 	int wobbleWaves = 1;
 	int decoyTrails = 1;
 	int loops = 0;
@@ -44,9 +44,9 @@ struct StageConfig {
 	int waveCount = 2;
 	std::vector<int> waveSizes;
 	int killTarget = 0;
-	int maxAlive = 8;                         // enemies alive at once
+	int maxAlive = 32;                         // enemies alive at once
 	float spawnDelay = 1.5f;
-	float waveRest = 8.0f;
+	float waveRest = 4.0f;
 
 	static StageConfig forStage(int number);
 };

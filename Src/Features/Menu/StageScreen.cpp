@@ -24,7 +24,7 @@ namespace {
 
 StageScreen::StageScreen(int unlockedStages, std::function<void(int)> onSelect)
 	: unlocked(unlockedStages), onSelect(std::move(onSelect)),
-	backButton(Rectangle{}, "BACK", nullptr, buttonStyle())
+	playButton(Rectangle{}, "BACK", nullptr, buttonStyle())
 {
 	for (int i = 0; i < StageConfig::Count; ++i) stages[static_cast<size_t>(i)] = StageConfig::forStage(i + 1);
 }
@@ -46,7 +46,7 @@ void StageScreen::layout()
 	screenHeight = GetScreenHeight();
 
 	const Rectangle last = cardBounds(StageConfig::Count - 1);
-	backButton.setBounds(Rectangle{ (static_cast<float>(screenWidth) - 200.0f) * 0.5f, last.y + last.height + 40.0f, 200.0f, 60.0f });
+	playButton.setBounds(Rectangle{ (static_cast<float>(screenWidth) - 200.0f) * 0.5f, last.y + last.height + 40.0f, 200.0f, 60.0f });
 }
 
 void StageScreen::update(float, NavigationStack& navigation)
@@ -66,8 +66,8 @@ void StageScreen::update(float, NavigationStack& navigation)
 		}
 	}
 
-	backButton.update();
-	if (backButton.wasClicked()) navigation.pop();
+	playButton.update();
+	if (playButton.wasClicked()) navigation.pop();
 }
 
 void StageScreen::render(Engine::Graphics::Renderer& renderer)
@@ -112,5 +112,5 @@ void StageScreen::render(Engine::Graphics::Renderer& renderer)
 		if (hovered == i && !locked) renderer.drawRectangleOutline(card, 5.0f, Gold);
 	}
 
-	backButton.render();
+	playButton.render();
 }

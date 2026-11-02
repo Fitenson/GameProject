@@ -11,7 +11,7 @@
 namespace Engine::UI {
 	class Dialog {
 	public:
-		explicit Dialog(std::string title, std::string message = "");
+		Dialog(std::string title, std::string message = "");
 
 		// Returns the index of the new button.
 		int addButton(const std::string& label);

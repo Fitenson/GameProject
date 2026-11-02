@@ -1,43 +1,100 @@
 #pragma once
 
+#include <array>
+#include <string>
 #include <vector>
-#include "Engine/Core.h"
+
 #include "Engine/Utils.h"
+#include "Engine/DataStructure.h"
 #include "../Weapon.h"
+#include "./Attachment/GunPart.h"
+#include "./Attachment/Magazine.h"
+#include "../AmmoInfo.h"
 #include "Bullet.h"
-#include "GunParts.h"
 #include "GunStats.h"
+#include "GunAttachment.h"
 
 class Gun : public Weapon
 {
 public:
-	Gun();
-	Gun(const std::string& name, float cooldown, float damageMultiplier);
+    typedef Iterator<
+        Engine::DataStructure::ListNode<
+        GunPart*,
+        Engine::DataStructure::ListType::Singly
+        >
+    > ListIterator;
 
-	// Attach a part at the end of the chain (closest to the tip last).
-	void addPart(UniquePtr<GunPart> part);
+    Gun();   // the standard, modular gun
+    Gun(const std::string& name, float cooldown, float damageMultiplier, bool modular);
+    ~Gun();
 
-	Iterator<GunPart> begin() const;
-	Iterator<GunPart> end() const;
+    Gun(const Gun&) = delete;
+    Gun& operator=(const Gun&) = delete;
 
-	void renderHeld(Engine::Graphics::Renderer& renderer, const Vector2& playerPosition, const Vector2& direction) const override;
-	void renderEffects(Engine::Graphics::Renderer& renderer) const override;
+    // Attach a part at the end of the chain.
+    // The magazine should be the first part.
+    void addPart(GunPart* part);
+
+    AmmoInfo getAmmoInfo() const override;
+
+    ListIterator begin() const;
+    ListIterator end() const;
+
+    bool isModular() const;
+    bool hasAttachment(GunAttachment attachment) const;
+    int getAttachmentCost(GunAttachment attachment) const;
+    bool setAttachment(GunAttachment attachment, bool value);
+
+    static bool isMuzzleDevice(GunAttachment attachment);
+
+    HandPose getHandPose(const Vector2& origin, const Vector2& direction) const override;
+
+    void renderHeld(
+        Engine::Graphics::Renderer& renderer,
+        const Vector2& playerPosition,
+        const Vector2& direction
+    ) const override;
+
+    void renderEffects(
+        Engine::Graphics::Renderer& renderer
+    ) const override;
 
 protected:
-	void onAttack(const AttackContext& context) override;
-	void onUpdate(float deltaTime, const AttackContext& context) override;
+    void onAttack(const AttackContext& context) override;
+    void onUpdate(float deltaTime, const AttackContext& context) override;
 
 private:
-	static constexpr float HolderGap = 8.0f;
+    static constexpr float HolderGap = 8.0f;
+    static constexpr float BaseReloadTime = 1.6f;
 
-	UniquePtr<GunPart> parts;
-	GunPart* tail;
-	GunStats stats;
-	float tipOffset = HolderGap;
+    Engine::DataStructure::List<
+        GunPart*,
+        Engine::DataStructure::ListType::Singly
+    > parts;
 
-	std::vector<Bullet> bullets;
-	float flashTimer = 0.0f;
-	float recoil = 0.0f;
+    Engine::DataStructure::Queue<Bullet*> reserve;
+    GunStats stats;
+    float tipOffset = HolderGap;
 
-	void rebuild();
+    std::vector<Bullet*> flying;
+
+    float flashTimer = 0.0f;
+    float recoil = 0.0f;
+
+    bool reloading = false;
+    float reloadTime = BaseReloadTime;
+    float reloadLeft = 0.0f;
+
+    bool modular = true;
+    std::array<bool, AttachmentCount> installed{};
+
+    Magazine* getMagazine() const;
+
+    bool takeBullet(Bullet*& out, bool unlimited);
+    void recycle(Bullet* bullet);
+
+    void startReload();
+    void finishReload();
+    void rebuild();
+    void assemble();
 };

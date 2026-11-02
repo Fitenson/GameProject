@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include "Engine/Graphics.h"
+#include "Engine/DataStructure.h"
 #include "../../../Game/Entity.h"
 
 class Bullet : public Entity {
@@ -13,6 +14,7 @@ public:
 	void update(float deltaTime) override;
 	void render(Engine::Graphics::Renderer& renderer) const override;
 
+	void fire(const Vector2& position, const Vector2& direction, float speed, float damage, float maxDistance);
 	float getDamage() const;
 	bool isAlive() const;
 	void kill();

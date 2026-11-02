@@ -13,6 +13,7 @@ namespace GameState {
     class Loading;
     class Playing;
     class Paused;
+    class Armory;
     class StageComplete;
     class GameOver;
 }
@@ -23,6 +24,7 @@ using GameFSM = GameMachine::PeerRoot<
     GameState::Loading,
     GameState::Playing,
     GameState::Paused,
+    GameState::Armory,
     GameState::StageComplete,
     GameState::GameOver
 >;
@@ -47,6 +49,13 @@ namespace GameState {
     };
 
     class Paused : public GameFSM::State {
+    public:
+        void enter(GameFSM::Control& control);
+        void update(GameFSM::FullControl& control);
+        void react(const RenderEvent& event, GameFSM::EventControl& control);
+    };
+
+    class Armory : public GameFSM::State {
     public:
         void enter(GameFSM::Control& control);
         void update(GameFSM::FullControl& control);

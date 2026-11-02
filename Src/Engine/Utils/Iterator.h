@@ -9,26 +9,39 @@ class Iterator
 {
 public:
 	Iterator() = default;
-	explicit Iterator(Type* node) : node(node) {}
+	Iterator(Type* current) : current(current) {}
 
-	Type& operator*() const { return *node; }
-	Type* operator->() const { return node; }
+	Type& operator*() const { return *current; }
+	Type* operator->() const { return current; }
+	Type* getCurrent() const { return current; }
 
 	Iterator& operator++() {
-		node = node->getNext();
+		current = current->getNext();
 		return *this;
 	}
 
 	Iterator operator++(int) {
 		Iterator previous = *this;
-		node = node->getNext();
+		current = current->getNext();
 		return previous;
 	}
 
-	friend bool operator==(const Iterator& a, const Iterator& b) {
-		return a.node == b.node;
+	Iterator<Type> begin() {
+		return Iterator<Type>(current);
+	}
+
+	Iterator<Type> end() {
+		return Iterator<Type>(nullptr);
+	}
+
+	friend bool operator==(const Iterator& left, const Iterator& right) {
+		return left.current == right.current;
+	}
+
+	friend bool operator!=(const Iterator& left, const Iterator& right) {
+		return !(left.current == right.current);
 	}
 
 private:
-	Type* node = nullptr;
+	Type* current = nullptr;
 };

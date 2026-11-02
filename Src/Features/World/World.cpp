@@ -3,14 +3,15 @@
 
 World::World(const StageConfig& config) : map(config), stage(config)
 {
-    spawner.configure(config.enemy);
+    enemySpawner.configure(config.enemy);
 }
 
 Map& World::getMap() { return map; }
 const Map& World::getMap() const { return map; }
 Stage& World::getStage() { return stage; }
 const Stage& World::getStage() const { return stage; }
-EnemySpawner& World::getSpawner() { return spawner; }
+EnemySpawner& World::getEnemySpawner() { return enemySpawner; }
+ItemSpawner& World::getItemSpawner() { return itemSpawner; }
 
 Vector2 World::getFocus() const { return camera.getPosition(); }
 void World::setFocus(const Vector2& focus) { camera.setPosition(focus); }
@@ -29,11 +30,19 @@ void World::update(float deltaTime, const Vector2& playerPosition, std::vector<T
     map.update(deltaTime);
 
     // The stage decides how many enemies appear, the spawner places them, kills flow back.
-    const int spawnCount = stage.update(deltaTime, spawner.getAlive(), map.allGatesOpen());
-    spawner.update(deltaTime, targets, playerPosition, exploreRadius, spawnCount, map);
+    const int spawnCount = stage.update(deltaTime, enemySpawner.getAlive(), map.allGatesOpen());
+    enemySpawner.update(deltaTime, targets, playerPosition, exploreRadius, spawnCount, map);
 
-    stage.registerKills(spawner.consumeKills());
+    const int newWaves = stage.consumeWaveStarts();
+    for (int i = 0; i < newWaves; ++i) itemSpawner.spawn(playerPosition, exploreRadius, map);
+
+    stage.registerKills(enemySpawner.consumeKills());
     map.notifyKills(stage.getKills());
+}
+
+std::vector<Item> World::collectItems(const Vector2& playerPosition)
+{
+    return itemSpawner.collect(playerPosition, 20.0f);
 }
 
 void World::drawChunks(Engine::Graphics::Renderer& renderer) const
@@ -76,12 +85,13 @@ void World::drawEntities(Engine::Graphics::Renderer& renderer) const
         }
     }
 
-    spawner.render(renderer, exploreCenter, exploreRadius);
+    itemSpawner.render(renderer, exploreCenter, exploreRadius);
+    enemySpawner.render(renderer, exploreCenter, exploreRadius);
 }
 
 void World::collectTargets(std::vector<Enemy*>& out)
 {
-    spawner.collectTargets(out, exploreCenter, exploreRadius);
+    enemySpawner.collectTargets(out, exploreCenter, exploreRadius);
 }
 
 void World::followDeadzone(Engine::Graphics::CameraController& camera, const Vector2& target)

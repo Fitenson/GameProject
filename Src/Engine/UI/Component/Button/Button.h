@@ -8,6 +8,8 @@
 namespace Engine::UI {
     class Button {
     public:
+		Button() = default;
+
         Button(
             const Rectangle& bounds,
             const std::string& label,

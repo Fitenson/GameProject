@@ -8,6 +8,7 @@ class Cell {
 public:
 	static const uint32_t Size = 8;
 
+	Cell() = default;
 	Cell(const Vector2& position, const TileType& type);
 
 	const Vector2& getPosition() const;

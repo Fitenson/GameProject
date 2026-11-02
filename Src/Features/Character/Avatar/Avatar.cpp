@@ -1,4 +1,5 @@
 #include "Avatar.h"
+#include "AvatarPainter.h"
 
 float& Avatar::getHp() { return stats.hp; }
 const float& Avatar::getHp() const { return stats.hp; }
@@ -22,3 +23,41 @@ const float& Avatar::getAttackSpeed() const { return stats.attackSpeed; }
 void Avatar::setAttackSpeed(float& attackSpeed) { this->stats.attackSpeed = attackSpeed; }
 
 const std::string& Avatar::getRole() const { return role; }
+
+bool Avatar::activateAbility()
+{
+	if (isAbilityActive() || abilityCooldownLeft > 0.0f) return false;
+
+	abilityTimer = getAbilityDuration();
+	specialAbility();
+	return true;
+}
+
+void Avatar::updateAbility(float deltaTime)
+{
+	if (isAbilityActive()) {
+		abilityTimer -= deltaTime;
+		if (abilityTimer <= 0.0f) {
+			abilityTimer = 0.0f;
+			endAbility();
+			abilityCooldownLeft = getAbilityCooldown();
+		}
+	}
+	else if (abilityCooldownLeft > 0.0f) {
+		abilityCooldownLeft = std::max(0.0f, abilityCooldownLeft - deltaTime);
+	}
+}
+
+bool Avatar::isAbilityActive() const { return abilityTimer > 0.0f; }
+float Avatar::getAbilityTimer() const { return abilityTimer; }
+float Avatar::getAbilityCooldownLeft() const { return abilityCooldownLeft; }
+
+void Avatar::renderBody(Engine::Graphics::Renderer& renderer, const AvatarPose& pose) const
+{
+	AvatarPainter::drawBody(renderer, pose, getLook());
+}
+
+void Avatar::renderUpper(Engine::Graphics::Renderer& renderer, const AvatarPose& pose) const
+{
+	AvatarPainter::drawUpper(renderer, pose, getLook());
+}

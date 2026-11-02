@@ -5,7 +5,7 @@
 
 class Stage {
 public:
-	explicit Stage(const StageConfig& config);
+	Stage(const StageConfig& config);
 
 	// Returns how many enemies should spawn this frame.
 	int update(float deltaTime, int aliveEnemies, bool allGatesOpen);
@@ -21,6 +21,7 @@ public:
 	int getWaveCount() const;
 	int getKills() const;
 	int getKillTarget() const;
+	int consumeWaveStarts();
 	const StageConfig& getConfig() const;
 
 private:
@@ -34,6 +35,7 @@ private:
 	float restLeft = StartDelay;
 	float spawnTimer = 0.0f;
 	bool gatesOpen = false;
+	int wavesStarted = 0;
 
 	void startNextWave();
 };

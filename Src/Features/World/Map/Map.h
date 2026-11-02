@@ -13,7 +13,8 @@ class Map {
 public:
 	static constexpr float CageReach = 40.0f;
 
-	explicit Map(const StageConfig& config);
+	Map() = default;
+	Map(const StageConfig& config);
 
 	const std::string& getName() const;
 	std::vector<Chunk>& getExploredChunks();

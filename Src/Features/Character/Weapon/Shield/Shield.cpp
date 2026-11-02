@@ -2,7 +2,7 @@
 #include <cmath>
 #include "Shield.h"
 
-Shield::Shield(float maxHp) : maxHp(maxHp), hp(maxHp) {}
+Shield::Shield(float maxHp) : maxHp(maxHp), hp(maxHp), baseMax(maxHp) {}
 
 float Shield::getHp() const { return hp; }
 float Shield::getMaxHp() const { return maxHp; }
@@ -30,6 +30,20 @@ float Shield::absorb(float damage)
 
 	return damage - absorbed;
 }
+
+void Shield::setBonus(float newBonus)
+{
+	if (newBonus == bonus) return;
+
+	const float old = bonus;
+	bonus = newBonus;
+	maxHp = baseMax + bonus;
+
+	if (newBonus > old) hp += newBonus - old;   // gaining the bonus adds that much shield
+	hp = std::min(hp, maxHp);                   // losing it never leaves hp above the max
+}
+
+void Shield::refill() { hp = maxHp; }
 
 void Shield::render(Engine::Graphics::Renderer& renderer, const Vector2& center, float radius) const
 {

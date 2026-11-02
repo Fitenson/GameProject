@@ -29,7 +29,7 @@ void Zombie::update(float deltaTime)
 		trailDelay -= deltaTime;
 	}
 	else if (trailHp > hp) {
-		trailHp = std::max(hp, trailHp - maxHp * 0.6f * deltaTime);   // drains 60% of max hp per second
+		trailHp = std::max(hp, trailHp - maxHp * 0.6f * deltaTime);
 	}
 
 	if (stunTimer > 0.0f) {

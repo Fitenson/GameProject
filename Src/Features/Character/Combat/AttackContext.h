@@ -10,4 +10,7 @@ struct AttackContext {
 	Vector2 direction;
 	float baseDamage;
 	const std::vector<Enemy*>& targets;
+	bool reloadRequested = false;
+	float rateMultiplier = 1.0f;
+	bool unlimitedAmmo = false;
 };

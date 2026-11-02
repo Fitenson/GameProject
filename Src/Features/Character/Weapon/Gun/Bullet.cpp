@@ -24,6 +24,15 @@ void Bullet::render(Engine::Graphics::Renderer& renderer) const
 	renderer.drawCircle(position, radius, Color{ 255, 255, 200, 255 });
 }
 
+void Bullet::fire(const Vector2& position, const Vector2& direction, float speed, float damage, float maxDistance) {
+	this->position = position;
+	this->direction = direction;
+	this->speed = speed;
+	this->damage = damage;
+	this->remainingDistance = maxDistance;
+	alive = true;
+}
+
 float Bullet::getDamage() const { return damage; }
 bool Bullet::isAlive() const { return alive; }
 void Bullet::kill() { alive = false; }

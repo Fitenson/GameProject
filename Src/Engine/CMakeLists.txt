@@ -9,6 +9,11 @@ add_library(Engine STATIC
     Core/Random.h
     Core.h
 
+    DataStructure/List.h
+    DataStructure/ListNode.h
+    DataStructure/Queue.h
+    DataStructure.h
+
     # Camera
     Graphics/Camera/CameraController.cpp
     Graphics/Camera/CameraController.h

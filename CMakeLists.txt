@@ -75,16 +75,20 @@ add_executable(GameProject
     Src/Features/Menu/MainMenu.h
     Src/Features/Menu/AvatarMenu.cpp
     Src/Features/Menu/AvatarMenu.h
+    Src/Features/Menu/ArmoryMenu.cpp
+    Src/Features/Menu/ArmoryMenu.h
 
     # Character
     Src/Features/Character/Character.cpp
     Src/Features/Character/Character.h
     Src/Features/Character/Stats.h
+    Src/Features/Character/Item.h
 
     Src/Features/Character/Weapon/Weapon.cpp
     Src/Features/Character/Weapon/Weapon.h
     Src/Features/Character/Weapon/WeaponFactory.cpp
     Src/Features/Character/Weapon/WeaponFactory.h
+    Src/Features/Character/Weapon/AmmoInfo.h
 
     Src/Features/Character/Weapon/Gun/Gun.cpp
     Src/Features/Character/Weapon/Gun/Gun.h
@@ -92,19 +96,47 @@ add_executable(GameProject
     Src/Features/Character/Weapon/Gun/Bullet.h
     Src/Features/Character/Weapon/Gun/GunMount.cpp
     Src/Features/Character/Weapon/Gun/GunMount.h
-    Src/Features/Character/Weapon/Gun/GunPart.h
-    Src/Features/Character/Weapon/Gun/GunParts.cpp
-    Src/Features/Character/Weapon/Gun/GunParts.h
     Src/Features/Character/Weapon/Gun/GunStats.h
+    Src/Features/Character/Weapon/Gun/Attachment/GunPart.h
+    Src/Features/Character/Weapon/Gun/Attachment/Barrel.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/Barrel.h
+    Src/Features/Character/Weapon/Gun/Attachment/HeavyBarrel.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/HeavyBarrel.h
+    Src/Features/Character/Weapon/Gun/Attachment/HeavyReceiver.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/HeavyReceiver.h
+    Src/Features/Character/Weapon/Gun/Attachment/Magazine.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/Magazine.h
+    Src/Features/Character/Weapon/Gun/Attachment/Compensator.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/Compensator.h
+    Src/Features/Character/Weapon/Gun/Attachment/Receiver.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/Receiver.h
+    Src/Features/Character/Weapon/Gun/Attachment/Scope.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/Scope.h
+    Src/Features/Character/Weapon/Gun/Attachment/Suppressor.cpp
+    Src/Features/Character/Weapon/Gun/Attachment/Suppressor.h
 
     Src/Features/Character/Weapon/Sword/Sword.cpp
     Src/Features/Character/Weapon/Sword/Sword.h
     Src/Features/Character/Weapon/Sword/SwordMount.cpp
     Src/Features/Character/Weapon/Sword/SwordMount.h
-    Src/Features/Character/Weapon/Sword/SwordPart.h
-    Src/Features/Character/Weapon/Sword/SwordParts.cpp
-    Src/Features/Character/Weapon/Sword/SwordParts.h
     Src/Features/Character/Weapon/Sword/SwordStats.h
+
+    Src/Features/Character/Weapon/Sword/Attachment/SwordPart.h
+    Src/Features/Character/Weapon/Sword/SwordAttachment.h
+    Src/Features/Character/Weapon/Sword/Attachment/Pommel.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Pommel.h
+    Src/Features/Character/Weapon/Sword/Attachment/Grip.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Grip.h
+    Src/Features/Character/Weapon/Sword/Attachment/Guard.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Guard.h
+    Src/Features/Character/Weapon/Sword/Attachment/Blade.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Blade.h
+    Src/Features/Character/Weapon/Sword/Attachment/Fuller.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Fuller.h
+    Src/Features/Character/Weapon/Sword/Attachment/Crescent.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Crescent.h
+    Src/Features/Character/Weapon/Sword/Attachment/Serrations.cpp
+    Src/Features/Character/Weapon/Sword/Attachment/Serrations.h
 
     Src/Features/Character/Weapon/Gun/HeavyGun.cpp
     Src/Features/Character/Weapon/Gun/HeavyGun.h
@@ -112,6 +144,7 @@ add_executable(GameProject
     Src/Features/Character/Weapon/Shield/Shield.h
 
     Src/Features/Character/Combat/AttackContext.h
+    Src/Features/Character/Combat/HandPose.h
 
     # Avatar
     Src/Features/Character/Avatar/Avatar.cpp
@@ -124,6 +157,10 @@ add_executable(GameProject
     Src/Features/Character/Avatar/Assasin.h
     Src/Features/Character/Avatar/Tanker.cpp
     Src/Features/Character/Avatar/Tanker.h
+    Src/Features/Character/Avatar/AvatarLook.h
+    Src/Features/Character/Avatar/AvatarPainter.cpp
+    Src/Features/Character/Avatar/AvatarPainter.h
+    Src/Features/Character/Avatar/AvatarPose.h
 
     # NPC
     Src/Features/Character/NPC/Trooper.cpp
@@ -142,6 +179,8 @@ add_executable(GameProject
     # Spawner
     Src/Features/Spawner/EnemySpawner.cpp
     Src/Features/Spawner/EnemySpawner.h
+    Src/Features/Spawner/ItemSpawner.cpp
+    Src/Features/Spawner/ItemSpawner.h
 
     # Stage
     Src/Features/World/Map/StageConfig.cpp

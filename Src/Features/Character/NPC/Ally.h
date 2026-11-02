@@ -19,6 +19,9 @@ public:
 	void takeDamage(float amount);
 	bool isDead() const;
 
+	Character& getCharacter();
+	const Character& getCharacter() const;
+
 	void update(float deltaTime) override;   // follows the leader
 	void updateCombat(float deltaTime, const std::vector<Enemy*>& targets);
 	void render(Engine::Graphics::Renderer& renderer) const override;

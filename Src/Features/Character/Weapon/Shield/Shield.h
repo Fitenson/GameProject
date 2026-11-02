@@ -19,6 +19,9 @@ public:
 	float getHp() const;
 	float getMaxHp() const;
 
+	void setBonus(float bonus);
+	void refill();
+
 	void render(Engine::Graphics::Renderer& renderer, const Vector2& center, float radius) const;
 	void renderBar(Engine::Graphics::Renderer& renderer, const Rectangle& area) const;
 
@@ -36,6 +39,8 @@ private:
 	float hitFlash = 0.0f;
 	// Drives the pulse and the rotating arcs
 	float clock = 0.0f;
+	float baseMax;
+	float bonus = 0.0f;
 
 	static unsigned char byteOf(float value)
 	{

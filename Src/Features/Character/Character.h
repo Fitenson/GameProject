@@ -1,6 +1,8 @@
 #pragma once
 
+#include <cstddef>
 #include <string>
+#include <vector>
 #include "Engine/Core.h"
 #include "Engine/Graphics.h"
 #include "Avatar/Avatar.h"
@@ -43,28 +45,36 @@ public:
 
 	bool isDead() const;
 	void takeDamage(float rawDamage);
+	void heal(float amount);   // restores HP, capped at the maximum
 
 	void equip(UniquePtr<Weapon> weapon);
-	void equipShield(UniquePtr<Shield> shield);
+	void equip(UniquePtr<Shield> shield);
 	const Shield* getShield() const;   // nullptr when there is none
+
+	// Weapon access (used by the armory)
+	size_t getWeaponCount() const;
+	Weapon* getWeapon(size_t index);   // nullptr when out of range
 
 	void selectWeapon(int index);
 	void selectNextWeapon();
 	void selectPreviousWeapon();
 	const std::string& getCurrentWeaponName() const;
+	AmmoInfo getCurrentAmmoInfo() const;   // ammo state of the weapon in hand
 
 	float getMovementMultiplier() const;
+	bool activateAbility();
 
 	void update(float deltaTime);   // ticks the shield
 	void updateWeapons(float deltaTime, const AttackContext& context, bool triggerPressed, bool triggerHeld);
 
+	HandPose getHandPose(const Vector2& position, const Vector2& direction) const;
+
 	void renderWeaponEffects(Engine::Graphics::Renderer& renderer) const;
 	void renderHeldWeapon(Engine::Graphics::Renderer& renderer, const Vector2& origin, const Vector2& direction) const;
 
-
 private:
 	std::string name;
-	int level;
+	int level = 1;
 	UniquePtr<Avatar> avatar;
 	std::vector<UniquePtr<Weapon>> weapons;
 	UniquePtr<Shield> shield;

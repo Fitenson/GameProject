@@ -8,11 +8,14 @@
 #include "../Character/NPC/Trooper.h"
 #include "../Menu/MainMenu.h"
 #include "../Menu/StageScreen.h"
+#include "../Menu/ArmoryMenu.h"
 #include "GameState.h"
 #include "../Character/Avatar/AvatarFactory.h"
 #include "../Character/Weapon/WeaponFactory.h"
 
 namespace {
+    constexpr int CoinPerKill = 5;
+
     // Trees, rocks, walls, gates and cages block movement. Slide along one axis if possible.
     void keepOutOfObstacles(const Map& map, Entity& entity, const Vector2& before)
     {
@@ -44,6 +47,27 @@ namespace {
         case AvatarVariant::Tanker:  return WeaponType::HeavyGun;
         }
         return WeaponType::Gun;
+    }
+
+    void drawAmmo(GameContext& context)
+    {
+        Engine::Graphics::Renderer& renderer = context.renderer;
+        const AmmoInfo ammo = context.player->getCharacter().getCurrentAmmoInfo();
+        if (!ammo.used) return;   // swords, guns without a magazine: nothing to show
+
+        const float y = static_cast<float>(GetScreenHeight()) - 76.0f;
+
+        if (ammo.reloading) {
+            renderer.drawText("RELOADING...", Vector2{ 16.0f, y }, 26, Color{ 245, 200, 60, 255 });
+        }
+        else {
+            const bool low = ammo.loaded <= std::max(1, ammo.capacity / 4);
+            renderer.drawText(std::to_string(ammo.loaded) + " / " + std::to_string(ammo.capacity),
+                Vector2{ 16.0f, y }, 30, low ? Color{ 230, 90, 70, 255 } : WHITE);
+        }
+
+        renderer.drawText("R: reload   (spare bullets: " + std::to_string(ammo.standby) + ")",
+            Vector2{ 16.0f, y + 34.0f }, 14, Color{ 200, 215, 215, 255 });
     }
 
     void drawHud(GameContext& context)
@@ -84,6 +108,17 @@ namespace {
 
         const std::string prompt = map.getPrompt(context.player->getPosition());
         if (!prompt.empty()) renderer.drawText(prompt, Vector2{ 16.0f, y }, 20, Color{ 255, 230, 120, 255 });
+
+        renderer.drawText("Scrap: " + std::to_string(context.player->getCoins()),
+            Vector2{ 16.0f, static_cast<float>(GetScreenHeight()) - 110.0f }, 20, Color{ 245, 200, 60, 255 });
+
+        drawAmmo(context);
+
+        if (context.noticeTimer > 0.0f) {
+            const int w = renderer.measureText(context.notice, 24);
+            renderer.drawText(context.notice,
+                Vector2{ (static_cast<float>(GetScreenWidth()) - w) * 0.5f, 120.0f }, 24, Color{ 255, 230, 120, 255 });
+        }
     }
 
     // The world, allies, player and HUD. Used by Playing, Paused, GameOver and StageComplete.
@@ -110,10 +145,16 @@ void GameState::MainMenu::enter(GameFSM::Control& control)
 {
     GameContext& context = control.context();
 
+	Player* player = context.player.get();
+
     context.dialog.reset();
     context.allies.clear();
     context.player.reset();
     context.world.reset();
+
+    if (player != nullptr) {
+        player->getCoins() = 0;
+    }
 
     context.startRequested = false;
     context.navigation.clear();
@@ -166,25 +207,38 @@ void GameState::Loading::update(GameFSM::FullControl& control)
     context.world = makeUnique<World>(StageConfig::forStage(context.selectedStage));
     const Vector2 spawn = context.world->getMap().getSpawn();
 
-    Character character(
-        "User001",
-        1,
-        AvatarFactory::createAvatar(context.selectedAvatar)
-    );
-
-    character.equip(WeaponFactory::create(startingWeapon(context.selectedAvatar)));
-
-    const float shieldRatio = character.getAvatar().getShieldRatio();
-    if (shieldRatio > 0.0f) {
-        character.equipShield(makeUnique<Shield>(character.getMaxHp() * shieldRatio));
+    Character character;
+    if (context.keepCharacter && context.player) {
+        character = std::move(context.player->getCharacter());   // keeps upgrades and attachments
+        character.heal(character.getMaxHp());
     }
+    else {
+        character = Character("User001", 1, AvatarFactory::createAvatar(context.selectedAvatar));
+        character.equip(WeaponFactory::create(startingWeapon(context.selectedAvatar)));
+
+        const float shieldRatio = character.getAvatar().getShieldRatio();
+        if (shieldRatio > 0.0f) {
+            character.equip(makeUnique<Shield>(character.getMaxHp() * shieldRatio));
+        }
+    }
+    context.keepCharacter = false;
 
     context.player = makeUnique<Player>(std::move(character), spawn);
     context.world->setFocus(spawn);
 
+    // Every stage counts its kills from zero. Scrap carries over.
+    context.lastKills = 0;
+
+    // Allies from the previous stage start next to the new spawn point.
+    float offset = 0.0f;
+    for (UniquePtr<Ally>& ally : context.allies) {
+        offset += 24.0f;
+        ally->setPosition(Vector2{ spawn.x - offset, spawn.y + 10.0f });
+        ally->setLeader(spawn);
+    }
+
     std::vector<Target> noTargets;
     context.world->update(0.0f, context.player->getHitPosition(), noTargets);
-    context.allies.clear();
 
     control.changeTo<GameState::Playing>();
 }
@@ -214,8 +268,14 @@ void GameState::Playing::update(GameFSM::FullControl& control)
     if (IsKeyPressed(KEY_E)) {
         const Vector2 p = context.player->getPosition();
         if (!map.interact(p) && map.freePrisoner(p)) {
-            context.allies.push_back(makeTrooperAlly(map.getPrisonerPosition()));
+            if (context.allies.size() < 3) {   // cap the party size
+                context.allies.push_back(makeTrooperAlly(map.getPrisonerPosition()));
+            }
         }
+    }
+
+    if (IsKeyPressed(KEY_Q)) {
+        context.player->getCharacter().activateAbility();
     }
 
     for (UniquePtr<Ally>& ally : context.allies) {
@@ -233,6 +293,43 @@ void GameState::Playing::update(GameFSM::FullControl& control)
     }
 
     context.world->update(context.deltaTime, context.player->getPosition(), targets);
+
+    for (const Item& item :
+        context.world->collectItems(context.player->getPosition()))
+    {
+        const Attachment& attachment = item.attachment;
+
+        std::visit(
+            [&](const auto& value)
+            {
+                using T = std::decay_t<decltype(value)>;
+
+                if constexpr (std::is_same_v<T, GunAttachment>)
+                {
+                    ++context.attachmentStock[indexOf(value)];
+                }
+                else if constexpr (std::is_same_v<T, SwordAttachment>)
+                {
+                    ++context.attachmentStock[indexOf(value)];
+                }
+            },
+            attachment.attachment
+        );
+
+        context.notice = "Found: "
+            + Weapon::getAttachmentName(attachment)
+            + "  (install it in the Armory)";
+
+        context.noticeTimer = 3.0f;
+    }
+
+
+    context.noticeTimer = std::max(0.0f, context.noticeTimer - context.deltaTime);
+
+    // Coins for every enemy defeated since the last frame.
+    const int kills = context.world->getStage().getKills();
+    context.player->getCoins() = context.player->getCoins() + (kills - context.lastKills) * CoinPerKill;
+    context.lastKills = kills;
 
     if (targets[0].damage > 0.0f) context.player->takeDamage(targets[0].damage);
     for (size_t i = 0; i < context.allies.size(); ++i) {
@@ -275,8 +372,9 @@ void GameState::Paused::enter(GameFSM::Control& control)
 
     context.dialog = makeUnique<Engine::UI::Dialog>("PAUSED");
     context.dialog->addButton("RESUME");     // 0
-    context.dialog->addButton("RESTART");    // 1
-    context.dialog->addButton("MAIN MENU");  // 2
+    context.dialog->addButton("ARMORY");     // 1
+    context.dialog->addButton("RESTART");    // 2
+    context.dialog->addButton("MAIN MENU");  // 3
 }
 
 void GameState::Paused::update(GameFSM::FullControl& control)
@@ -291,8 +389,13 @@ void GameState::Paused::update(GameFSM::FullControl& control)
 
     switch (context.dialog->update(context.deltaTime)) {
     case 0: control.changeTo<GameState::Playing>();  break;
-    case 1: control.changeTo<GameState::Loading>();  break;   // restart the same stage
-    case 2: control.changeTo<GameState::MainMenu>(); break;
+    case 1: control.changeTo<GameState::Armory>();   break;
+    case 2:   // restart begins a new run: no party, no coins
+        context.allies.clear();
+        context.player->getCoins() = 0;
+        control.changeTo<GameState::Loading>();
+        break;
+    case 3: control.changeTo<GameState::MainMenu>(); break;
     default: break;
     }
 }
@@ -304,11 +407,61 @@ void GameState::Paused::react(const RenderEvent&, GameFSM::EventControl& control
     if (context.dialog) context.dialog->render(context.renderer);
 }
 
+// ---------- Armory ----------
+
+void GameState::Armory::enter(GameFSM::Control& control)
+{
+    GameContext& context = control.context();
+
+    context.dialog.reset();
+    context.navigation.clear();
+
+    if (context.player) {
+        context.navigation.push(makeUnique<ArmoryMenu>(
+            context.player->getCharacter(), context.allies, context.player->getCoins(), context.attachmentStock,
+            context.armoryFromStage ? "NEXT STAGE" : "BACK"));
+    }
+}
+
+void GameState::Armory::update(GameFSM::FullControl& control)
+{
+    GameContext& context = control.context();
+
+    context.navigation.update(context.deltaTime);
+
+    if (!context.navigation.isEmpty()) return;
+
+    if (context.armoryFromStage) {                 // upgrades done: start the next stage
+        context.armoryFromStage = false;
+        context.keepCharacter = true;
+        ++context.selectedStage;
+        control.changeTo<GameState::Loading>();
+    }
+    else {
+        control.changeTo<GameState::Paused>();
+    }
+}
+
+
+void GameState::Armory::react(
+    const RenderEvent&,
+    GameFSM::EventControl& control
+)
+{
+    GameContext& context = control.context();
+    context.navigation.render(context.renderer);
+}
+
+
 // ---------- GameOver ----------
 
 void GameState::GameOver::enter(GameFSM::Control& control)
 {
     GameContext& context = control.context();
+
+    // The run is over: the party and the scrap are lost.
+    context.allies.clear();
+    context.player->getCoins() = 0;
 
     context.dialog = makeUnique<Engine::UI::Dialog>("GAME OVER", "You were overwhelmed.");
     context.dialog->addButton("RESTART");    // 0
@@ -365,10 +518,13 @@ void GameState::StageComplete::update(GameFSM::FullControl& control)
 
     switch (choice) {
     case 0:
-        ++context.selectedStage;
+        context.armoryFromStage = true;
+        control.changeTo<GameState::Armory>();
+        break;
+    case 1:   // replay: same stage, keep the character and its upgrades
+        context.keepCharacter = true;
         control.changeTo<GameState::Loading>();
         break;
-    case 1: control.changeTo<GameState::Loading>();  break;
     case 2: control.changeTo<GameState::MainMenu>(); break;
     default: break;
     }

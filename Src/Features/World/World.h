@@ -1,4 +1,3 @@
-// World.h
 #pragma once
 
 #include <string>
@@ -8,11 +7,12 @@
 #include "./Map/Map.h"
 #include "./Map/Stage.h"
 #include "../Spawner/EnemySpawner.h"
+#include "../Spawner/ItemSpawner.h"
 #include "../Character/Combat/AttackContext.h"
 
 class World {
 public:
-	explicit World(const StageConfig& config);
+	World(const StageConfig& config);
 
 	static constexpr float exploreRadius = 300.0f;
 
@@ -20,7 +20,8 @@ public:
 	const Map& getMap() const;
 	Stage& getStage();
 	const Stage& getStage() const;
-	EnemySpawner& getSpawner();
+	EnemySpawner& getEnemySpawner();
+	ItemSpawner& getItemSpawner();
 
 	Vector2 getFocus() const;
 	void setFocus(const Vector2& focus);
@@ -32,11 +33,13 @@ public:
 	void drawChunks(Engine::Graphics::Renderer& renderer) const;
 	void drawEntities(Engine::Graphics::Renderer& renderer) const;
 	void collectTargets(std::vector<Enemy*>& out);
+	std::vector<Item> collectItems(const Vector2& playerPosition);
 
 private:
 	Map map;
 	Engine::Graphics::CameraController camera;
-	EnemySpawner spawner;
+	EnemySpawner enemySpawner;
+	ItemSpawner itemSpawner;
 	Stage stage;
 	Vector2 exploreCenter{ 0.0f, 0.0f };
 

@@ -1,10 +1,13 @@
 #pragma once
 
 #include <array>
-#include "Engine/Core.h"
+#include <string>
+#include "Engine/Utils.h"
+#include "Engine/DataStructure.h"
 #include "../Weapon.h"
-#include "SwordPart.h"
+#include "./Attachment/SwordPart.h"
 #include "SwordStats.h"
+#include "SwordAttachment.h"
 
 struct Hand {
 	float side;                      // +1 = right hand, -1 = left hand
@@ -15,11 +18,30 @@ struct Hand {
 
 class Sword : public Weapon {
 public:
+	typedef Iterator<
+		Engine::DataStructure::ListNode<
+		SwordPart*,
+		Engine::DataStructure::ListType::Singly
+		>
+	> ListIterator;
+
 	Sword();
-	~Sword() = default;
+	~Sword();
 
-	void addPart(UniquePtr<SwordPart> part);
+	Sword(const Sword&) = delete;
+	Sword& operator=(const Sword&) = delete;
 
+	ListIterator begin() const;
+	ListIterator end() const;
+
+	void addPart(SwordPart* part);
+
+	// Attachments
+	bool hasAttachment(SwordAttachment attachment) const;
+	int getAttachmentCost(SwordAttachment attachment) const;
+	bool setAttachment(SwordAttachment attachment, bool value);
+
+	HandPose getHandPose(const Vector2& playerPosition, const Vector2& direction) const override;
 	void renderHeld(Engine::Graphics::Renderer& renderer, const Vector2& playerPosition, const Vector2& direction) const override;
 	void renderEffects(Engine::Graphics::Renderer& renderer) const override;
 
@@ -28,24 +50,23 @@ protected:
 	void onUpdate(float deltaTime, const AttackContext& context) override;
 
 private:
-	static constexpr float HolderGap = 8.0f;     // distance from the hand to the first part
-	static constexpr float HandOffset = 7.0f;    // how far each hand sits from the body's center line
-	static constexpr float RestSpread = 0.45f;   // radians the idle sword angles outward
+	static constexpr float HolderGap = 8.0f;
+	static constexpr float HandOffset = 7.0f;
+	static constexpr float RestSpread = 0.45f;
+	static constexpr float GripDistance = HolderGap + 9.0f;
 
-	UniquePtr<SwordPart> parts;   // pommel -> grip -> guard -> blade
-	SwordPart* tail;
+	Engine::DataStructure::List<SwordPart*, Engine::DataStructure::ListType::Singly> parts;
 	SwordStats stats;
-	float tipOffset = HolderGap;              // also the hit range
+	float tipOffset = HolderGap;
 
-	float swingTime = 0.0f;
-	float centerAngle = 0.0f;
-	float swingSign = 1.0f;                   // alternates, so swings go back and forth
-	Vector2 holder{ 0.0f, 0.0f };
 	std::array<Hand, 2> hands{ Hand{ -1.0f }, Hand{ 1.0f } };
-	size_t nextHand = 1;                      // the right hand swings first
+	size_t nextHand = 1;
+
+	std::array<bool, SwordAttachmentCount> installed{};   // indexed by SwordAttachment
 
 	void rebuild();
+	void assemble();
 	static Vector2 playerHand(const Vector2& playerPosition, const Vector2& direction, float side);
-	float swingAngle(const Hand& hand) const;                                 // while swinging
-	float handAngle(const Hand& hand, const Vector2& direction) const;       // swinging or resting
+	float swingAngle(const Hand& hand) const;
+	float handAngle(const Hand& hand, const Vector2& direction) const;
 };

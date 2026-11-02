@@ -5,4 +5,6 @@ struct GunStats {
 	float bulletRange = 600.0f;
 	float recoil = 6.0f;
 	float flashScale = 1.0f;
+	float magazineSize = 30.0f;
+	float reloadSpeed = 10.0f;
 };

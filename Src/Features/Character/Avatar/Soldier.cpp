@@ -1,3 +1,4 @@
+#include "Engine/Graphics.h"
 #include "Soldier.h"
 
 Soldier::Soldier() {
@@ -5,11 +6,11 @@ Soldier::Soldier() {
 	this->stats = {
 		.hp = 100,
 		.maxHp = 100,
-		.damage = 15,
+		.damage = 30,
 		.armor = 20,
-		.movementSpeed = 30,
-		.attackSpeed = 20
+		.movementSpeed = 60,
+		.attackSpeed = 25
 	};
 }
 
-void Soldier::specialAbility() const {}
+std::string Soldier::getAbilityName() const { return "Overdrive"; }

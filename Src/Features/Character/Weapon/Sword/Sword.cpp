@@ -2,43 +2,88 @@
 #include <cmath>
 #include <utility>
 #include "Sword.h"
-#include "SwordParts.h"
+#include "./Attachment/Pommel.h"
+#include "./Attachment/Blade.h"
+#include "./Attachment/Guard.h"
+#include "./Attachment/Grip.h"
+#include "./Attachment/Serrations.h"
+#include "./Attachment/Crescent.h"
+#include "./Attachment/Fuller.h"
 
-Sword::Sword() : parts(nullptr), tail(nullptr), Weapon("Sword", 0.28f, 1.2f, true)   // each blade hits a little lighter, but faster
+Sword::Sword() : Weapon("Sword", 0.28f, 1.2f, true)
 {
-	addPart(makeUnique<Pommel>());
-	addPart(makeUnique<Grip>());
-	addPart(makeUnique<Guard>());
-	addPart(makeUnique<Blade>());
+	assemble();
 }
 
-void Sword::addPart(UniquePtr<SwordPart> part)
+Sword::~Sword()
+{
+	parts.clear();
+}
+
+// Physical order: pommel, grip, guard, blade, then the attachments that sit on the blade.
+void Sword::assemble()
+{
+	parts.clear();
+
+	addPart(new Pommel());
+	addPart(new Grip());
+	addPart(new Guard());
+	addPart(new Blade());
+	if (hasAttachment(SwordAttachment::Serrations)) addPart(new Serrations());
+	if (hasAttachment(SwordAttachment::Fuller))     addPart(new Fuller());
+	if (hasAttachment(SwordAttachment::Crescent))   addPart(new Crescent());
+}
+
+bool Sword::hasAttachment(SwordAttachment attachment) const
+{
+	return installed[indexOf(attachment)];
+}
+
+int Sword::getAttachmentCost(SwordAttachment attachment) const
+{
+	switch (attachment) {
+	case SwordAttachment::Serrations: return 60;
+	case SwordAttachment::Fuller:     return 50;
+	case SwordAttachment::Crescent:   return 70;
+	default:                          return 0;
+	}
+}
+
+bool Sword::setAttachment(SwordAttachment attachment, bool value)
+{
+	if (hasAttachment(attachment) == value) return true;
+
+	installed[indexOf(attachment)] = value;
+	assemble();
+	return true;
+}
+
+Sword::ListIterator Sword::begin() const { return parts.getIterator(); }
+Sword::ListIterator Sword::end() const { return parts.getIterator().end(); }
+
+void Sword::addPart(SwordPart* part)
 {
 	if (part == nullptr) return;
-
-	SwordPart* newPart = part.get();   // grab it before the move
-
-	if (tail == nullptr) {
-		parts = std::move(part);
-	}
-	else {
-		tail->setNext(std::move(part));
-	}
-
-	tail = newPart;
-
+	if (!parts.pushBack(part)) return;
 	rebuild();
 }
 
-// Recompute the stats and the tip position by walking the chain.
 void Sword::rebuild()
 {
 	stats = SwordStats{};
 	tipOffset = HolderGap;
 
-	for (const SwordPart* part = parts.get(); part; part = part->getNext()) {
-		part->modify(stats);
-		tipOffset += part->length();
+	ListIterator iterator = begin();
+
+	while (iterator != end()) {
+		SwordPart* part = iterator.getCurrent()->getValue();
+
+		if (part != nullptr) {
+			part->modify(stats);
+			tipOffset += part->length();
+		}
+
+		++iterator;
 	}
 }
 
@@ -61,19 +106,18 @@ float Sword::swingAngle(const Hand& hand) const
 float Sword::handAngle(const Hand& hand, const Vector2& direction) const
 {
 	if (hand.swingTime > 0.0f) return swingAngle(hand);
-	return std::atan2(direction.y, direction.x) + hand.side * RestSpread;   // idle: angled outward
+	return std::atan2(direction.y, direction.x) + hand.side * RestSpread;
 }
 
 void Sword::onAttack(const AttackContext& context)
 {
 	Hand& hand = hands[nextHand];
-	nextHand = (nextHand + 1) % hands.size();   // the other hand swings next
+	nextHand = (nextHand + 1) % hands.size();
 
 	hand.centerAngle = std::atan2(context.direction.y, context.direction.x);
 	hand.swingTime = stats.swingDuration;
 	hand.origin = playerHand(context.playerPosition, context.direction, hand.side);
 
-	// Damage lands instantly for responsiveness; the animation is cosmetic.
 	const float damage = damageOf(context) * stats.damageScale;
 
 	for (Enemy* target : context.targets) {
@@ -94,17 +138,38 @@ void Sword::onUpdate(float deltaTime, const AttackContext& context)
 	}
 }
 
+HandPose Sword::getHandPose(const Vector2& playerPosition, const Vector2& direction) const
+{
+	HandPose pose;
+
+	for (const Hand& hand : hands) {
+		const Vector2 origin = playerHand(playerPosition, direction, hand.side);
+		const float angle = handAngle(hand, direction);
+		const Vector2 grip{ origin.x + std::cos(angle) * GripDistance, origin.y + std::sin(angle) * GripDistance };
+
+		if (hand.side > 0.0f) { pose.hasRight = true; pose.right = grip; }
+		else { pose.hasLeft = true; pose.left = grip; }
+	}
+	return pose;
+}
+
 void Sword::renderHeld(Engine::Graphics::Renderer& renderer, const Vector2& playerPosition, const Vector2& direction) const
 {
 	for (const Hand& hand : hands) {
 		const Vector2 origin = playerHand(playerPosition, direction, hand.side);
 		const float angle = handAngle(hand, direction);
-
-		// Each part starts where the previous one ended.
 		float offset = HolderGap;
-		for (const SwordPart* part = parts.get(); part; part = part->getNext()) {
-			part->render(renderer, SwordMount{ origin, angle, offset });
-			offset += part->length();
+
+		ListIterator iterator = begin();
+
+		while (iterator != end()) {
+			SwordPart* part = iterator.getCurrent()->getValue();
+
+			if (part != nullptr) {
+				part->render(renderer, SwordMount{ origin, angle, offset });
+				offset += part->length();
+			}
+			++iterator;
 		}
 	}
 }
@@ -117,7 +182,6 @@ void Sword::renderEffects(Engine::Graphics::Renderer& renderer) const
 		const float startAngle = hand.centerAngle + hand.side * stats.halfArc;
 		const float nowAngle = swingAngle(hand);
 
-		// Slash trail: fades in toward the blade's current position.
 		constexpr int steps = 10;
 		for (int i = 0; i < steps; ++i) {
 			const float a0 = startAngle + (nowAngle - startAngle) * i / steps;

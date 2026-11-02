@@ -22,6 +22,7 @@ private:
 	int hovered = -1;
 	int screenWidth = 0;
 	int screenHeight = 0;
+	Engine::UI::Button playButton;
 	Engine::UI::Button backButton;
 
 	Rectangle cardBounds(int index) const;

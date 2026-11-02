@@ -12,6 +12,10 @@ Vector2 Ally::getHitPosition() const { return position; }
 
 float Ally::getHitRadius() const { return BodyRadius; }
 
+Character& Ally::getCharacter() { return character; }
+
+const Character& Ally::getCharacter() const { return character; }
+
 bool Ally::isDead() const { return character.isDead(); }
 
 void Ally::update(float deltaTime)

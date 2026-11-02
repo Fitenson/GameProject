@@ -20,6 +20,13 @@ bool Stage::isComplete() const
 	return kills >= config.killTarget && (!config.requireAllGates || gatesOpen);
 }
 
+int Stage::consumeWaveStarts()
+{
+	const int result = wavesStarted;
+	wavesStarted = 0;
+	return result;
+}
+
 bool Stage::isWaitingForGates() const
 {
 	return config.requireAllGates && kills >= config.killTarget && !gatesOpen;
@@ -31,6 +38,7 @@ void Stage::startNextWave()
 	waveRemaining = config.waveSizes[static_cast<size_t>(wave - 1)];
 	resting = false;
 	spawnTimer = 0.5f;
+	++wavesStarted;
 }
 
 int Stage::update(float deltaTime, int aliveEnemies, bool allGatesOpen)
