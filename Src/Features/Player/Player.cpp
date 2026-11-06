@@ -13,7 +13,9 @@ const Character& Player::getCharacter() const { return character; }
 void Player::setAimTarget(const Vector2& worldTarget) { aimTarget = worldTarget; }
 Vector2 Player::getAimDirection() const { return aimDirection; }
 
-int& Player::getCoins() { return coins; }
+int Player::getCoins() { return coins; }
+
+void Player::setCoins(int coins) { this->coins = coins; }
 
 Vector2 Player::getHitPosition() const { return position; }
 float Player::getHitRadius() const { return HitRadius; }

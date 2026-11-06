@@ -13,8 +13,6 @@ Assasin::Assasin() {
 	};
 }
 
-Assasin::Assasin(const Assasin& other): Avatar(other) {}
-
 
 AvatarLook Assasin::getLook() const
 {

@@ -54,11 +54,29 @@ add_executable(GameProject
     # Game
     Src/Features/Game/Game.cpp
     Src/Features/Game/Game.h
-    Src/Features/Game/GameState.cpp
-    Src/Features/Game/GameState.h
     Src/Features/Game/GameContext.h
     Src/Features/Game/Entity.cpp
     Src/Features/Game/Entity.h
+    Src/Features/Game/State/State.h
+    Src/Features/Game/State/MainMenu.cpp
+    Src/Features/Game/State/MainMenu.h
+    Src/Features/Game/State/ArmoryMenu.cpp
+    Src/Features/Game/State/ArmoryMenu.h
+    Src/Features/Game/State/Loading.cpp
+    Src/Features/Game/State/Loading.h
+    Src/Features/Game/State/Paused.cpp
+    Src/Features/Game/State/Paused.h
+
+    Src/Features/Game/State/GameOver.cpp
+    Src/Features/Game/State/GameOver.h
+    Src/Features/Game/State/StageComplete.cpp
+    Src/Features/Game/State/StageComplete.h
+    Src/Features/Game/State/Playing.cpp
+    Src/Features/Game/State/Playing.h
+    Src/Features/Game/State/StateHelper.cpp
+    Src/Features/Game/State/StateHelper.h
+    Src/Features/Game/GameStates.h
+
 
     # World
     Src/Features/World/World.cpp

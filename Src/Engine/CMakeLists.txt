@@ -10,8 +10,13 @@ add_library(Engine STATIC
     Core.h
 
     DataStructure/List.h
+    DataStructure/ListType.h
     DataStructure/ListNode.h
     DataStructure/Queue.h
+    DataStructure/Tree/Element.h
+    DataStructure/Tree/NTree.h
+    DataStructure/Tree/TreeNode.h
+    DataStructure/Tree/TreeVisitor.h
     DataStructure.h
 
     # Camera

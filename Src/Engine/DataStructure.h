@@ -1,5 +1,9 @@
 #pragma once
-
 #include "DataStructure/List.h"
+#include "DataStructure/ListType.h"
 #include "DataStructure/ListNode.h"
 #include "DataStructure/Queue.h"
+#include "DataStructure/Tree/Element.h"
+#include "DataStructure/Tree/NTree.h"
+#include "DataStructure/Tree/TreeNode.h"
+#include "DataStructure/Tree/TreeVisitor.h"

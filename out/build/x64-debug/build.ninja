@@ -71,7 +71,7 @@ build CMakeFiles\GameProject.dir\Src\Features\Game\Game.cpp.obj: CXX_COMPILER__G
   TARGET_PDB = GameProject.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
 
-build CMakeFiles\GameProject.dir\Src\Features\Game\GameState.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\GameState.cpp || cmake_object_order_depends_target_GameProject
+build CMakeFiles\GameProject.dir\Src\Features\Game\Entity.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\Entity.cpp || cmake_object_order_depends_target_GameProject
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
@@ -82,13 +82,90 @@ build CMakeFiles\GameProject.dir\Src\Features\Game\GameState.cpp.obj: CXX_COMPIL
   TARGET_PDB = GameProject.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
 
-build CMakeFiles\GameProject.dir\Src\Features\Game\Entity.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\Entity.cpp || cmake_object_order_depends_target_GameProject
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\MainMenu.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\MainMenu.cpp || cmake_object_order_depends_target_GameProject
   CONFIG = Debug
   DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
   INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
   OBJECT_DIR = CMakeFiles\GameProject.dir
-  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\ArmoryMenu.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\ArmoryMenu.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\Loading.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\Loading.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\Paused.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\Paused.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\GameOver.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\GameOver.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\StageComplete.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\StageComplete.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\Playing.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\Playing.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
+  TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
+  TARGET_PDB = GameProject.pdb
+  TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
+
+build CMakeFiles\GameProject.dir\Src\Features\Game\State\StateHelper.cpp.obj: CXX_COMPILER__GameProject_unscanned_Debug C$:\Users\fiten\source\repos\GameProject\Src\Features\Game\State\StateHelper.cpp || cmake_object_order_depends_target_GameProject
+  CONFIG = Debug
+  DEFINES = -DGRAPHICS_API_OPENGL_33 -DPLATFORM_DESKTOP
+  FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -std:c++20 -ZI
+  INCLUDES = -IC:\Users\fiten\source\repos\GameProject\Include -IC:\Users\fiten\source\repos\GameProject\Src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\hfsm2-src\include -IC:\Users\fiten\source\repos\GameProject\Src\Engine\.. -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src -IC:\Users\fiten\source\repos\GameProject\out\build\x64-debug\_deps\raylib-src\src\external\glfw\include
+  OBJECT_DIR = CMakeFiles\GameProject.dir
+  OBJECT_FILE_DIR = CMakeFiles\GameProject.dir\Src\Features\Game\State
   TARGET_COMPILE_PDB = CMakeFiles\GameProject.dir\
   TARGET_PDB = GameProject.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\GameProject.dir
@@ -640,7 +717,7 @@ build CMakeFiles\GameProject.dir\Src\Features\Menu\StageScreen.cpp.obj: CXX_COMP
 #############################################
 # Link the executable GameProject.exe
 
-build GameProject.exe: CXX_EXECUTABLE_LINKER__GameProject_Debug CMakeFiles\GameProject.dir\GameProject.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\Game.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\GameState.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\Entity.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\World.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Map.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Chunk.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Cell.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\MainMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\AvatarMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\ArmoryMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Character.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Weapon.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\WeaponFactory.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Gun.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Bullet.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\GunMount.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Barrel.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\HeavyBarrel.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\HeavyReceiver.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Magazine.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Compensator.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Receiver.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Scope.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Suppressor.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Sword.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\SwordMount.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Pommel.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Grip.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Guard.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Blade.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Fuller.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Crescent.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Serrations.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\HeavyGun.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Shield\Shield.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Avatar.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\AvatarFactory.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Soldier.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Assasin.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Tanker.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\AvatarPainter.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\NPC\Trooper.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\NPC\Ally.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Player\Player.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Monster\Zombie.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Spawner\EnemySpawner.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Spawner\ItemSpawner.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\StageConfig.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Stage.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Puzzle\PuzzleRenderer.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\MapGenerator.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\StageScreen.cpp.obj | Src\Engine\Engine.lib _deps\raylib-build\raylib\raylib.lib C$:\Program$ Files\Microsoft$ Visual$ Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest || Src\Engine\Engine.lib _deps\raylib-build\raylib\external\glfw\src\glfw _deps\raylib-build\raylib\raylib.lib
+build GameProject.exe: CXX_EXECUTABLE_LINKER__GameProject_Debug CMakeFiles\GameProject.dir\GameProject.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\Game.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\Entity.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\MainMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\ArmoryMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\Loading.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\Paused.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\GameOver.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\StageComplete.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\Playing.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Game\State\StateHelper.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\World.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Map.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Chunk.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Cell.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\MainMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\AvatarMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\ArmoryMenu.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Character.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Weapon.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\WeaponFactory.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Gun.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Bullet.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\GunMount.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Barrel.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\HeavyBarrel.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\HeavyReceiver.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Magazine.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Compensator.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Receiver.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Scope.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\Attachment\Suppressor.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Sword.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\SwordMount.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Pommel.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Grip.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Guard.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Blade.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Fuller.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Crescent.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Sword\Attachment\Serrations.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Gun\HeavyGun.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Weapon\Shield\Shield.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Avatar.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\AvatarFactory.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Soldier.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Assasin.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\Tanker.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\Avatar\AvatarPainter.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\NPC\Trooper.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Character\NPC\Ally.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Player\Player.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Monster\Zombie.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Spawner\EnemySpawner.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Spawner\ItemSpawner.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\StageConfig.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\Stage.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Puzzle\PuzzleRenderer.cpp.obj CMakeFiles\GameProject.dir\Src\Features\World\Map\MapGenerator.cpp.obj CMakeFiles\GameProject.dir\Src\Features\Menu\StageScreen.cpp.obj | Src\Engine\Engine.lib _deps\raylib-build\raylib\raylib.lib C$:\Program$ Files\Microsoft$ Visual$ Studio\18\Community\VC\Tools\MSVC\14.51.36231\include\manifest\segmentheap.manifest || Src\Engine\Engine.lib _deps\raylib-build\raylib\external\glfw\src\glfw _deps\raylib-build\raylib\raylib.lib
   CONFIG = Debug
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Ob0 /Od /RTC1 -ZI
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console

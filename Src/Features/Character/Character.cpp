@@ -129,6 +129,9 @@ void Character::update(float deltaTime)
 {
 	if (shield) shield->update(deltaTime);
 	avatar->updateAbility(deltaTime);
+
+	// The shield bonus only lasts while the ability does.
+	if (shield && !avatar->isAbilityActive()) shield->setBonus(0.0f);
 }
 
 void Character::equip(UniquePtr<Shield> newShield) { shield = std::move(newShield); }
@@ -148,5 +151,14 @@ float Character::getMovementMultiplier() const
 
 bool Character::activateAbility()
 {
-	return avatar->activateAbility();
+	if (!avatar->activateAbility()) return false;
+
+	if (shield) {
+		const float bonus = avatar->getShieldBonusRatio() * avatar->getMaxHp();
+		if (bonus > 0.0f) {
+			shield->setBonus(bonus);
+			shield->refill();
+		}
+	}
+	return true;
 }

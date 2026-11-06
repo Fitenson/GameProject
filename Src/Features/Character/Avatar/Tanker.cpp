@@ -31,3 +31,17 @@ AvatarLook Tanker::getLook() const
 std::string Tanker::getAbilityName() const { return "Fortify"; }
 
 float Tanker::getShieldRatio() const { return 0.5f; }
+
+void Tanker::specialAbility()
+{
+	stats.damage *= Boost;
+	stats.armor *= Boost;
+	stats.attackSpeed *= Boost;
+}
+
+void Tanker::endAbility()
+{
+	stats.damage /= Boost;
+	stats.armor /= Boost;
+	stats.attackSpeed /= Boost;
+}

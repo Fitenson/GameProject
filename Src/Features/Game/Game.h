@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Engine/Core.h"
-#include "GameState.h"
+#include "GameStates.h"
 #include "GameContext.h"
 
 class Game

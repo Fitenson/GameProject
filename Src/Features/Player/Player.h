@@ -1,11 +1,12 @@
 #pragma once
 
 #include <raylib.h>
+#include "Engine/DataStructure.h"
 #include "../Game/Entity.h"
 #include "../Character/Character.h"
 #include "../Monster/Enemy.h"
 
-class Player : public Entity {
+class Player : public Entity, public Engine::DataStructure::Element {
 public:
 	Player(Character character, const Vector2& position);
 
@@ -15,7 +16,8 @@ public:
 	void setAimTarget(const Vector2& worldTarget);
 	Vector2 getAimDirection() const;
 
-	int& getCoins();
+	int getCoins();
+	void setCoins(int coins);
 
 	Vector2 getHitPosition() const;
 	float getHitRadius() const;

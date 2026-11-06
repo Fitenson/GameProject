@@ -20,5 +20,6 @@ struct MapLayout {
 
 class MapGenerator {
 public:
+	MapGenerator() = default;
 	static MapLayout generate(const StageConfig& config);
 };

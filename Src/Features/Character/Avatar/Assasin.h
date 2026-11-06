@@ -11,7 +11,6 @@ private:
 
 public:
 	Assasin();
-	Assasin(const Assasin& other);
 
 	AvatarLook getLook() const override;
 
